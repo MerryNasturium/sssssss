@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | LastJavaCheck</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+      <div id="unity-container" class="unity-desktop">
+          <canvas id="unity-canvas" width=960 height=600></canvas>
+          <div id="unity-loading-bar">
+              <div id="unity-logo"></div>
+              <div id="unity-progress-bar-empty">
+                  <div id="unity-progress-bar-full"></div>
+              </div>
+          </div>
+          <div id="unity-mobile-warning">
+              WebGL builds are not supported on mobile devices.
+          </div>
+          <div id="unity-footer">
+              <div id="unity-webgl-logo"></div>
+              <div id="unity-fullscreen-button"></div>
+              <div id="unity-build-title">LastJavaCheck</div>
+          </div>
+      </div>
+      <script src="Build/web.loader.js"></script>
+      <script>
+          var unityInstance = null;
+          createUnityInstance(document.querySelector("#unity-canvas"), {
+              dataUrl: "Build/web.data",
+              frameworkUrl: "Build/web.framework.js",
+              codeUrl: "Build/web.wasm",
+              streamingAssetsUrl: "StreamingAssets",
+              companyName: "DefaultCompany",
+              productName: "New Unity Project",
+              productVersion: "0.1",
+          }).then(x => unityInstance = x);
+      </script>
+      <script>
+          function unitySendMessage(params) {
+              unityInstance.SendMessage("Connect", "Trigger");
+          }
+      </script>
+      <button type="button"onclick="unitySendMessage()">Unityに送信</button>
+  </body>
+</html>
